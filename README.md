@@ -1,16 +1,16 @@
-##fy-datepicker
+# fy-datepicker
 这是一款可以增加备注日历控件，绑定到元素上，并支持纯展示和单选操作，基于Zepto或jQuery（建议Zepto）。
 
-code: https://coding.net/u/benjiaoxz/p/fy-datePicker/git
+code: [https://coding.net/u/benjiaoxz/p/fy-datePicker/git](https://coding.net/u/benjiaoxz/p/fy-datePicker/git)
 
-pages: http://benjiaoxz.coding.me/fy-datePicker/examples/index.html
+pages: [http://benjiaoxz.coding.me/fy-datePicker/examples/index.html](http://benjiaoxz.coding.me/fy-datePicker/examples/index.html)
 
-##使用
+## 使用
 
 	npm install
 	npm start
 
-##参数
+## 参数
 
 	var DEFAULT = {
         dateBase: '',
@@ -62,3 +62,7 @@ pages: http://benjiaoxz.coding.me/fy-datePicker/examples/index.html
 
 **selectCallback**：<br>
 选择事件回调
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
