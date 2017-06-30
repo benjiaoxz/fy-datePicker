@@ -1,0 +1,5 @@
+var         path = require('path');
+var       BRANCH = __dirname;
+var globalOption = {};
+
+module.exports = exports = globalOption;

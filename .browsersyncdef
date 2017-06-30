@@ -1,0 +1,48 @@
+/*
+** 默认配置
+*
+* BRANCH：当前目录，res：路径（js、less、css、image），browsersyncConfig：浏览器监控，spriteConfig：雪碧图（图片合并）
+*
+**
+*/
+var         path = require('path');
+var       BRANCH = __dirname;
+var globalOption = {};
+
+globalOption.res = {
+	src: {
+		    jssrc: path.join(BRANCH, 'src/js'),
+		  lesssrc: path.join(BRANCH, 'src/less'),
+		  csssrc: path.join(BRANCH, 'src/css'),
+		 imagesrc: path.join(BRANCH, 'src/images')
+	},
+	dest: {
+		   jsdest: path.join(BRANCH, 'dist/javascripts'),
+		 lessdest: path.join(BRANCH, 'dist/stylesheets'),
+		 cssdest: path.join(BRANCH, 'dist/stylesheets'),
+		imagedest: path.join(BRANCH, 'dist/images')
+	}
+};
+
+globalOption.browsersyncConfig = {
+	init: {
+		server: {
+			baseDir: __dirname,
+			index: 'examples/index.html'
+		},
+		// proxy: ''
+	},
+	files: [globalOption.res.src.jssrc, globalOption.res.src.lesssrc, globalOption.res.src.imagesrc, path.join(BRANCH, 'examples')]
+};
+
+globalOption.spriteConfig = {
+			src: [],
+		   dest: '',
+		options: {
+		imgName: '', 
+		cssName: ''
+	}
+};
+
+Object.assign(globalOption, require('./.browsersynclrc'));
+module.exports = exports = globalOption;

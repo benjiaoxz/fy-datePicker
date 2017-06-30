@@ -1,0 +1,141 @@
+@charset "utf-8";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.fy-date-picker {
+  font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #333;
+  background-color: #fafafa;
+  -webkit-user-select: none;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0;
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    background: #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+
+    .date {
+      flex: 1;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+    }
+
+    .left-btn,.right-btn {
+      padding: 0 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .disabled {
+      font-size: 16px;
+      color: #999;
+    }
+  }
+
+  .section {
+    width: 100%;
+
+    .fx-center-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      & > * {
+        flex: 3;
+        flex-basis: 12%;
+        align-self: center;
+        text-align: center;
+        margin: 0 2px;
+      }
+    }
+
+    thead {
+      tr {
+        .fx-center-between;
+
+        th {
+          height: 34px;
+          line-height: 34px;
+          font-size: 14px;
+          color: #333;
+          font-weight: normal;
+        }
+      }
+    }
+
+    tbody {
+      padding: 8px 0;
+
+      tr {
+        .fx-center-between;
+        margin-top: 8px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        td {
+          height: 45px;
+          margin-bottom: 5px;
+
+          p {
+            padding-top: 7px;
+            font-size: 16px;
+            line-height: 1;
+            color: #333;
+          }
+
+          .comment {
+            display: block;
+            font-size: 12px;
+            color: #F27D4A;
+            height: 12px;
+            line-height: 1;
+            margin-top: 3px;
+
+            /* 一行省略 */
+            overflow : hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+          }
+
+          &.readonly {
+            & > * {
+              color: #999;
+            }
+          }
+
+          &.disabled {
+            & > * {
+              color: #ccc;
+            }
+          }
+
+          &.active {
+            background: #F27D4A;
+            border-radius: 5px;
+
+            & > * {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

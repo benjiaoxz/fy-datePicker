@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    <link rel="stylesheet" href="../dist/stylesheets/fy-datepicker.css">
+</head>
+<body>
+
+    <div id="app"></div>
+
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="../dist/javascripts/fy-datePicker.min.js"></script>
+    <script>
+
+        $(function () {
+
+            $('#app').datePicker({
+                dateBase: '2017-6-20',
+                gather: [
+                    { date: '2017-6-14', state: 'active' },
+                    { date: '2017-6-19', comment: '备注', state: 'readonly' },
+                    { date: '2017-6-20', comment: '备注', state: 'readonly' },
+                    { date: '2017-6-21', comment: '备注', state: 'select' },
+                    { date: '2017-6-22', comment: '备注', state: 'select' },
+                    { date: '2017-6-26', comment: '备注', state: 'disable' },
+                    { date: '2017-6-27', comment: '备注' },
+                    { date: '2017-6-28', comment: '备注', state: 'disable' },
+                    { date: '2017-6-29', state: 'select' },
+                    { date: '2017-6-30', state: 'select' },
+                    { date: '2017-7-4', comment: '备注', state: 'select' }
+                ],
+                selectCallback: function (data) {
+                    //TODO
+                    console.log(data);
+                }
+            });
+
+        })
+
+    </script>
+
+</body>
+</html>
