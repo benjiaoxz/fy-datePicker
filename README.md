@@ -24,14 +24,16 @@ pages: http://benjiaoxz.coding.me/fy-datePicker/examples/index.html
         selectCallback: null
     };
 
-**dateBase**：
+**dateBase**：<br>
 初始化年月日，默认为当日
+
 格式：
 
 	'2017-6-20'，'2017-6'
 
-**gather**：
+**gather**：<br>
 数据集合
+
 格式：
 
 	[{date: '2017-6-20', comment: '备注', state: 'select'}...]
@@ -40,24 +42,23 @@ pages: http://benjiaoxz.coding.me/fy-datePicker/examples/index.html
 	comment：备注信息
 	state：状态，可选（select）、只读（readonly）、禁用（disable）、已选（active），默认可选
 
-
-**disableSwitch**：
+**disableSwitch**：<br>
 关闭切换月份，默认不关闭
 
-**lock**：
+**lock**：<br>
 锁定控件上的所有操作，只展示，默认不锁定
 
-**multiple**：
+**multiple**：<br>
 多选，默认可以多选
 
-**before**：
+**before**：<br>
 初始化的当日之前是否可选，默认不可选
 
-**after**：
+**after**：<br>
 当前月份的后续月份可选数，必须为数字，负数则是前月，默认后两个月
 
-**weekend**：
+**weekend**： <br>
 周末是否可选，默认不可选
 
-**selectCallback**：
+**selectCallback**：<br>
 选择事件回调
