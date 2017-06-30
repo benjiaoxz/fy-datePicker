@@ -1,5 +1,8 @@
 /**
  * Created by benjiaoxz on 2017/6/20.
+ * code: https://coding.net/u/benjiaoxz/p/fy-datePicker/git
+ * pages: http://benjiaoxz.coding.me/fy-datePicker/examples/index.html
+ *
  */
 
 (function(_) {

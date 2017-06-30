@@ -1,7 +1,7 @@
 {
-  "name": "gulp-manager",
-  "version": "0.0.1",
-  "description": "gulp-manager",
+  "name": "fy-datePicker",
+  "version": "1.0.0",
+  "description": "datePicker",
   "author": "benjiaoxz <445088977@qq.com>",
   "scripts": {
     "start": "gulp start"
