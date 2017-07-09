@@ -361,6 +361,12 @@
                     case 'active':
                         //已选
                         stateActive.push(stateTmp);
+
+                        //如果已选数据之前没有添加到选择数组中，则添加
+                        if(DatePicker.data.selectData.indexOf(stateTmp) < 0) {
+                            DatePicker.data.selectData.push(stateTmp);
+                        }
+
                         break;
                 }
             }
@@ -432,10 +438,12 @@
             }
 
             //如果当日已被选中过
-            if(checkDate(DATE.year + '-' + DATE.month + '-' + dayArr[i], DatePicker.data.selectData)) {
-                statusClass = ' active';
-                statusConfirm = 'data-confirm="true" ';
-                selectable = 'data-selectable="true" ';
+            if(dayArr[i] != '') {
+                if(checkDate(DATE.year + '-' + DATE.month + '-' + dayArr[i], DatePicker.data.selectData)) {
+                    statusClass = ' active';
+                    statusConfirm = 'data-confirm="true" ';
+                    selectable = 'data-selectable="true" ';
+                }
             }
 
             //td
@@ -603,20 +611,32 @@
 
         if(typeof date === 'string') {
             var dateArr = date.split('-');
+            var dateStr = '';
 
-            //年份
-            if(dateArr.length == 2) {
-                var newDate = new Date(dateArr[0], dateArr[1]);
-            } else if(dateArr.length == 3) {
-                var newDate = new Date(dateArr[0], dateArr[1], dateArr[2]);
-            } else {
-                throw '日期错误';
+            for(var i = 0; i < dateArr.length; i++) {
+                if(dateArr[i] < 10) {
+                    dateArr[i] = '0' + dateArr[i];
+                }
+
+                if(i < dateArr.length - 1) {
+                    dateStr += dateArr[i] + '-';
+                } else {
+                    dateStr += dateArr[i];
+                }
             }
 
-            if(!isNaN(newDate.getFullYear()) && !isNaN(newDate.getMonth()) && !isNaN(newDate.getDate())) {
+            if(dateArr.length == 2) {
+                dateStr += '-01T00:00:00';
+            } else {
+                dateStr += 'T00:00:00';
+            }
+
+            try {
+                var newDate = new Date(dateStr);
+
                 result = {
                     year: newDate.getFullYear(),
-                    month: newDate.getMonth(),
+                    month: newDate.getMonth() + 1,
                     day: newDate.getDate()
                 }
 
@@ -644,7 +664,7 @@
                         result.week = '星期六';
                         break;
                 }
-            } else {
+            } catch (e) {
                 throw '日期错误';
             }
         }

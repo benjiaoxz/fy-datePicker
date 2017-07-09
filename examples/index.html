@@ -14,33 +14,83 @@
 
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
     <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
-    <script src="../dist/javascripts/fy-datePicker.min.js"></script>
+    <script src="../src/js/fy-datePicker.js"></script>
     <script>
 
         $(function () {
-
             $('#app').datePicker({
-                dateBase: '2017-6-20',
-                gather: [
-                    { date: '2017-6-14', state: 'active' },
-                    { date: '2017-6-19', comment: '备注', state: 'readonly' },
-                    { date: '2017-6-20', comment: '备注', state: 'readonly' },
-                    { date: '2017-6-21', comment: '备注', state: 'select' },
-                    { date: '2017-6-22', comment: '备注', state: 'select' },
-                    { date: '2017-6-26', comment: '备注', state: 'disable' },
-                    { date: '2017-6-27', comment: '备注' },
-                    { date: '2017-6-28', comment: '备注', state: 'disable' },
-                    { date: '2017-6-29', state: 'select' },
-                    { date: '2017-6-30', state: 'select' },
-                    { date: '2017-7-4', comment: '备注', state: 'select' }
-                ],
+                dateBase: '2017-7-9',
+                weekend: true,
+                gather: createData([7, 8, 9]),
                 selectCallback: function (data) {
                     //TODO
                     console.log(data);
                 }
             });
 
-        })
+            //创建随机数据
+            function createData(monthDrr) {
+                var result = [];
+
+                monthDrr.forEach(function (item, index) {
+                    var _n = 0,
+                        _MAX = new Date(2017, item, 0).getDate();
+
+                    var arr = [];
+                    //创建数组
+                    for(var i = 0; i < _MAX; i++) {
+                        _n = parseInt(Math.random().toFixed(2) * 10) + i + index;
+
+                        if(_n <= _MAX) {
+                            arr.push(_n);
+                        }
+                    }
+
+                    //去重
+                    for(var n = 0; n < arr.length; n++) {
+                        for(var m = 0; m < arr.length; m++) {
+                            if(arr[n] == arr[m]) {
+                                arr.splice(m, 1);
+                            }
+                        }
+                    }
+
+                    //排序
+                    arr.sort(function () {
+                        return -1;
+                    });
+
+                    //填充数据
+                    for(var l = 0; l < arr.length; l++) {
+                        var _result = {
+                            date: '2017-' + item + '-' + arr[l],
+                            state: 'select'
+                        };
+
+                        if(parseInt(2 * Math.random())) {
+                            _result.comment = '备注';
+                        }
+
+                        switch(parseInt(4 * Math.random()) + 1) {
+                            case 1:
+                                _result.state = 'select';
+                                break;
+                            case 2:
+                                _result.state = 'readonly';
+                                break;
+                            case 3:
+                                _result.state = 'disabled';
+                                break;
+                        }
+
+                        result.push(_result);
+                    }
+                });
+
+                return result;
+            }
+
+        });
 
     </script>
 
