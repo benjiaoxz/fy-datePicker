@@ -21,7 +21,8 @@ pages: [http://benjiaoxz.coding.me/fy-datePicker/examples/index.html](http://ben
         before: false,
         after: 2,
         weekend: false,
-        selectCallback: null
+        selectCallback: null,
+        highlight: true
     };
 
 **dateBase**：<br>
@@ -62,6 +63,9 @@ pages: [http://benjiaoxz.coding.me/fy-datePicker/examples/index.html](http://ben
 
 **selectCallback**：<br>
 选择事件回调
+
+**highlight**：<br>
+是否高亮显示含有备注信息的元素，默认显示
 
 ## License
 

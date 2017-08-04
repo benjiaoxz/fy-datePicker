@@ -37,6 +37,7 @@
      * 	    默认后两个月，负数则是前月
      * 	周末是否可选：weekend，默认不可选
      * 	选择事件回调：selectCallback
+     * 	是否高亮显示含有备注信息的元素：highlight，默认显示
      *
      * */
     var DEFAULT = {
@@ -48,7 +49,8 @@
         before: false,
         after: 2,
         weekend: false,
-        selectCallback: null
+        selectCallback: null,
+        highlight: true
     };
 
     var DatePicker = function (element, opt) {
@@ -382,6 +384,9 @@
             dateHtml = '<p>' + dayArr[i] + '</p>';
             commentData = 'data-comment="' + ckDay + '"';
             commentHtml = '<span class="comment">' + ckDay + '</span>';
+            statusClass = '';
+            statusConfirm = '';
+            selectable = '';
 
             if(dayArr[i] == '') {
                 dateData = '';
@@ -430,8 +435,8 @@
                     if(checkDate(newDate, stateDisable)) {
                         //禁用
                         statusClass = ' disabled';
-                    } else {
-                        //默认只读
+                    } else if(checkDate(newDate, stateReadonly)) {
+                        //只读
                         statusClass = ' readonly';
                     }
                 }
@@ -446,7 +451,15 @@
                 }
             }
 
+            //如果含有备注信息，则高亮显示
+            if(DEFAULT.highlight) {
+                if($.trim(ckDay) != '') {
+                    statusClass += ' highlight';
+                }
+            }
+
             //td
+            statusClass = $.trim(statusClass);
             tdHTML += '<td class="' + statusClass + '" ' +
                 statusConfirm +
                 selectable +
