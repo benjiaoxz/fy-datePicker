@@ -242,16 +242,16 @@
         var $section = $('<table cellspacing="0" border="0" class="section">');
 
         $section.append('<thead>' +
-                            '<tr>' +
-                                '<th>日</th>' +
-                                '<th>一</th>' +
-                                '<th>二</th>' +
-                                '<th>三</th>' +
-                                '<th>四</th>' +
-                                '<th>五</th>' +
-                                '<th>六</th>' +
-                            '</tr>' +
-                        '</thead>');
+            '<tr>' +
+            '<th>日</th>' +
+            '<th>一</th>' +
+            '<th>二</th>' +
+            '<th>三</th>' +
+            '<th>四</th>' +
+            '<th>五</th>' +
+            '<th>六</th>' +
+            '</tr>' +
+            '</thead>');
 
         var $body = $('<tbody></tbody>');
         var _bodyHTML = '';
@@ -551,51 +551,62 @@
             function selectableHandle() {
                 var obj = $(this);
 
-                if(!obj.data('confirm')) {
-                    if(!DEFAULT.multiple && selectData.length == 1) {
-                        //不支持多选，且已经选择一个
-                        return false;
+                if(DEFAULT.multiple) {
+                    //多选
+
+                    if(!obj.data('confirm')) {
+                        //选中
+                        obj.data('confirm', true);
+                        obj.addClass('active');
+
+                        //存储选中的数据到回调数据中
+                        saveDateData(obj.data('date'), obj.data('comment'));
+                    } else {
+                        //取消
+                        obj.data('confirm', false);
+                        obj.removeClass('active');
+
+                        //删除选中的数据
+                        for(var i = 0; i < selectData.length; i++) {
+                            if(selectData[i].date == obj.data('date')) {
+                                selectData.splice(i, 1);
+                            }
+                        }
+                    }
+                } else {
+                    //单选
+
+                    //不可以二次取消
+                    if(obj.data('confirm')) {
+                        return;
                     }
 
-                    //确认选择
-                    obj.data('confirm', true);
+                    //其他
+                    $('[data-selectable=true]').removeClass('active').data('confirm', false);
 
+                    //当前
+                    obj.data('confirm', true);
                     obj.addClass('active');
 
                     //存储选中的数据到回调数据中
-                    selectData.push({
-                        date: obj.data('date'),
-                        comment: obj.data('comment')
-                    });
-
-                    //不支持多选
-                    if(!DEFAULT.multiple) {
-                        $('[data-selectable=true]').off('click');
-                        obj.one('click', selectableHandle);
-                    }
-                } else {
-                    //取消选择
-                    obj.data('confirm', false);
-
-                    obj.removeClass('active');
-
-                    //删除选中的数据
-                    for(var i = 0; i < selectData.length; i++) {
-                        if(selectData[i].date == obj.data('date')) {
-                            selectData.splice(i, 1);
-                        }
-                    }
-
-                    //不支持多选
-                    if(!DEFAULT.multiple) {
-                        $('[data-selectable=true]').on('click', selectableHandle);
-                    }
+                    selectData.length = 0;
+                    saveDateData(obj.data('date'), obj.data('comment'));
                 }
 
                 //选择事件回调
                 if (DEFAULT.selectCallback instanceof Function) {
                     DEFAULT.selectCallback.call(DatePicker.el, DatePicker.data);
                 }
+            }
+
+            //存储日期数据
+            function saveDateData(date, comment) {
+                var d = DatePicker.formatDate(date);
+
+                selectData.push({
+                    date: d,
+                    comment: comment
+                });
             }
 
             /*
@@ -679,6 +690,10 @@
                 }
             } catch (e) {
                 throw '日期错误';
+            }
+        } else if(typeof date === 'object') {
+            if(date.hasOwnProperty('year') && date.hasOwnProperty('month') && date.hasOwnProperty('day') && date.hasOwnProperty('week')) {
+                result = date;
             }
         }
 

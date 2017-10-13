@@ -10,7 +10,7 @@
   line-height: 1.5;
   font-size: 14px;
   color: #333;
-  background-color: #fafafa;
+  background-color: #fff;
   -webkit-user-select: none;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
@@ -93,6 +93,31 @@
           height: 45px;
           margin-bottom: 5px;
           color: #999;
+          position: relative;
+
+          &:before {
+            position: absolute;
+            top: 0;
+            z-index: 0;
+            width: 38%;
+            height: 0;
+            padding-top: 38%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+          }
+
+          /*左上角图标*/
+          &.top-left-icon::before {
+            content: '';
+            left: 0;
+          }
+
+          /*右上角图标*/
+          &.top-right-icon::before {
+            content: '';
+            right: 0;
+          }
 
           p {
             padding-top: 7px;
