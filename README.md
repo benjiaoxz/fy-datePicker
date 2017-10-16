@@ -70,4 +70,3 @@ pages: [http://benjiaoxz.coding.me/fy-datePicker/examples/index.html](http://ben
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
-master
