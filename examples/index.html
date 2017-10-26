@@ -19,8 +19,9 @@
 
         $(function () {
             $('#app').datePicker({
-                dateBase: '2017-7-9',
+                dateBase: '2017-6-26',
                 weekend: true,
+                after: -3,
                 gather: createData([7, 8, 9]),
                 selectCallback: function (data) {
                     //TODO

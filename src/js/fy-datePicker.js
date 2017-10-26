@@ -155,65 +155,60 @@
                 baseDay = baseDate.day;
 
             /*
-             *
-             * 月份
-             *
-             * */
-            //上个月
-            if(DATE.month == 1) {
-                //一月
-                var beforeMonth = (DATE.year - 1) + '-12';
-            } else if(DATE.month - 1 == baseMonth) {
-                //如果是初始化月
-                var beforeMonth = DATE.year + '-' + baseMonth + '-' + baseDay;
-            } else {
-                //其他月
-                var beforeMonth = DATE.year + '-' + (DATE.month - 1);
-            }
+            * 获取上下月
+            * @beforeDate   上个月对象
+            * @afterDate    下个月对象
+            * @beforeMonth    下个月日期
+            * @afterMonth    下个月日期
+            * */
+            var beforeDate, afterDate;
+            beforeDate = afterDate = DATE.year + '-' + (DATE.month >= 10 ? DATE.month : '0' + DATE.month) + '-' + (DATE.day >= 10 ? DATE.day : '0' + DATE.day);
 
-            //下个月
-            if(DATE.month == 12) {
-                //十二月
-                var afterMonth = (DATE.year + 1) + '-1';
-            } else if(DATE.month + 1 == baseMonth) {
-                //如果是初始化月
-                var afterMonth = DATE.year + '-' + baseMonth + '-' + baseDay;
-            } else {
-                //其他月
-                var afterMonth = DATE.year + '-' + (DATE.month + 1);
-            }
+            beforeDate = new Date(beforeDate + 'T00:00:01');
+            afterDate = new Date(afterDate + 'T00:00:02');
+            beforeDate.setMonth(beforeDate.getMonth() - 1);
+            afterDate.setMonth(afterDate.getMonth() + 1);
+
+            var beforeMonth = beforeDate.getFullYear() + '-' + (beforeDate.getMonth() + 1) + '-' + beforeDate.getDate();
+            var afterMonth = afterDate.getFullYear() + '-' + (afterDate.getMonth() + 1) + '-' + afterDate.getDate();
 
             var leftBtnDisable = '',
                 rightBtnDisable = '';
             var leftTarget = 'data-target-month="' + beforeMonth + '"',
                 rightTarget = 'data-target-month="' + afterMonth + '"';
 
-            if(typeof DEFAULT.after == 'number') {
-                if(DEFAULT.after < 0) {
-                    //小于0
-                    if(DATE.month - 1 < baseMonth + DEFAULT.after) {
-                        leftBtnDisable = 'disabled';
-                        leftTarget = '';
-                    } else if(DATE.month + 1 > baseMonth) {
-                        rightBtnDisable = 'disabled';
-                        rightTarget = '';
-                    }
-                } else if(DEFAULT.after > 0) {
-                    //大于0
-                    if(DATE.month - 1 < baseMonth) {
-                        leftBtnDisable = 'disabled';
-                        leftTarget = '';
-                    } else if(DATE.month > baseMonth + (DEFAULT.after - 1)) {
-                        rightBtnDisable = 'disabled';
-                        rightTarget = '';
-                    }
-                } else {
-                    //=0
+            var now = new Date(baseDate.year + '-' + (baseDate.month >= 10 ? baseDate.month : '0' + baseDate.month) + '-' + (baseDate.day >= 10 ? baseDate.day : '0' + baseDate.day) + 'T00:00:01');
+
+            if(DEFAULT.after < 0) {
+                //小于0
+                if(beforeDate.setMonth(beforeDate.getMonth() + Math.abs(DEFAULT.after)) < now.getTime()) {
                     leftBtnDisable = 'disabled';
                     leftTarget = '';
+                }
+
+                if(afterDate.getTime() > now.getTime()) {
                     rightBtnDisable = 'disabled';
                     rightTarget = '';
                 }
+            } else if(DEFAULT.after > 0) {
+                //大于0
+                if(beforeDate.getTime() < now.getTime()) {
+                    leftBtnDisable = 'disabled';
+                    leftTarget = '';
+                }
+
+                if(afterDate.setMonth(afterDate.getMonth() - 1 - Math.abs(DEFAULT.after)) > now.getTime()) {
+                    rightBtnDisable = 'disabled';
+                    rightTarget = '';
+                }
+            }
+
+            if(DEFAULT.after == 0) {
+                //=0
+                leftBtnDisable = 'disabled';
+                leftTarget = '';
+                rightBtnDisable = 'disabled';
+                rightTarget = '';
             }
         }
 
