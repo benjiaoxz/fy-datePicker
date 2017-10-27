@@ -178,26 +178,28 @@
                 rightTarget = 'data-target-month="' + afterMonth + '"';
 
             var now = new Date(baseDate.year + '-' + (baseDate.month >= 10 ? baseDate.month : '0' + baseDate.month) + '-' + (baseDate.day >= 10 ? baseDate.day : '0' + baseDate.day) + 'T00:00:01');
+            var bf = new Date(beforeDate.toDateString());
+            var af = new Date(afterDate.toDateString());
 
             if(DEFAULT.after < 0) {
                 //小于0
-                if(beforeDate.setMonth(beforeDate.getMonth() + Math.abs(DEFAULT.after)) < now.getTime()) {
+                if(bf.setMonth(bf.getMonth() + 1 + Math.abs(DEFAULT.after)) < now.getTime()) {
                     leftBtnDisable = 'disabled';
                     leftTarget = '';
                 }
 
-                if(afterDate.getTime() > now.getTime()) {
+                if(af.setMonth(af.getMonth()) > now.getTime()) {
                     rightBtnDisable = 'disabled';
                     rightTarget = '';
                 }
             } else if(DEFAULT.after > 0) {
                 //大于0
-                if(beforeDate.getTime() < now.getTime()) {
+                if(bf.setMonth(bf.getMonth() + 1) < now.getTime()) {
                     leftBtnDisable = 'disabled';
                     leftTarget = '';
                 }
 
-                if(afterDate.setMonth(afterDate.getMonth() - 1 - Math.abs(DEFAULT.after)) > now.getTime()) {
+                if(af.setMonth(af.getMonth() - Math.abs(DEFAULT.after)) > now.getTime()) {
                     rightBtnDisable = 'disabled';
                     rightTarget = '';
                 }
