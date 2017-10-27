@@ -146,18 +146,6 @@
             }
           }
 
-          &.readonly {
-            & > * {
-              color: #999;
-            }
-          }
-
-          &.disabled {
-            & > * {
-              color: #ccc;
-            }
-          }
-
           &.highlight {
             p {
               color: #333;
@@ -174,6 +162,18 @@
 
             p,.comment {
               color: #fff;
+            }
+          }
+
+          &.readonly {
+            & > * {
+              color: #999!important;
+            }
+          }
+
+          &.disabled {
+            & > * {
+              color: #ccc!important;
             }
           }
         }
