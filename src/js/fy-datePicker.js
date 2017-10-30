@@ -483,7 +483,10 @@
                     badgeHtml = '<div class="badge" style="' +
                         badgeTmp[bt].badge.direction + ': 0; ' +
                         'background-image: url(' + badgeTmp[bt].badge.source + ');' +
-                        '"></div>';
+                        '"' +
+                        'data-badge="' + badgeTmp[bt].badge.source + '"' +
+                        'data-badge-active="' + badgeTmp[bt].badge.active + '"' +
+                        '></div>';
                 }
             }
 
@@ -566,7 +569,7 @@
                         d2 = DatePicker.formatDate(date);
 
                         if(d1.day == d2.day && d1.month == d2.month && d1.year == d2.year) {
-                            result = index;
+                            result = index.toString();
                             throw BreakException;
                         }
                     });
@@ -608,6 +611,7 @@
 
             function selectableHandle() {
                 var obj = $(this);
+                var badgeEle = obj.find('.badge');
 
                 if(DEFAULT.multiple) {
                     //多选
@@ -619,6 +623,12 @@
 
                         //存储选中的数据到回调数据中
                         saveDateData(obj.data('date'), obj.data('comment'));
+
+                        if(badgeEle.length == 1) {
+                            badgeEle.css({
+                                'background-image': 'url(' + badgeEle.data('badge-active') + ')'
+                            });
+                        }
                     } else {
                         //取消
                         obj.data('confirm', false);
@@ -630,6 +640,12 @@
                                 selectData.splice(i, 1);
                             }
                         }
+
+                        if(badgeEle.length == 1) {
+                            badgeEle.css({
+                                'background-image': 'url(' + badgeEle.data('badge') + ')'
+                            });
+                        }
                     }
                 } else {
                     //单选
@@ -640,7 +656,12 @@
                     }
 
                     //其他
-                    $('[data-selectable=true]').removeClass('active').data('confirm', false);
+                    $('[data-selectable=true]').each(function (index, item) {
+                        $(this).removeClass('active').data('confirm', false);
+                        $(this).find('.badge').css({
+                            'background-image': 'url(' + $(this).find('.badge').data('badge') + ')'
+                        });
+                    });
 
                     //当前
                     obj.data('confirm', true);
@@ -649,6 +670,10 @@
                     //存储选中的数据到回调数据中
                     selectData.length = 0;
                     saveDateData(obj.data('date'), obj.data('comment'));
+
+                    badgeEle.css({
+                        'background-image': 'url(' + badgeEle.data('badge-active') + ')'
+                    });
                 }
 
                 //选择事件回调
