@@ -23,11 +23,12 @@
      *
      * 	初始化年月日：dateBase，默认为当日
      * 	gather：数据集合
-     * 	    格式：[{date: '2017-6-20', comment: '备注', state: 'select'}...]
+     * 	    格式：[{date: '2017-6-20', comment: '备注', state: 'select', badge-left: 'url', badge-left-active: 'url', badge-right: 'url', badge-right-active: 'url'}...]
      * 	    param：
      * 	        date：日期，必填，
      * 	        comment：备注信息
      * 	        state：状态，可选（select）、只读（readonly）、禁用（disable）、已选（active），默认可选
+     * 	        badge：角标，支持左上角和右上角（badge-left、badge-right），最好配备选中的图标（badge-left-active、badge-right-active），必须是链接
      * 	disableSwitch：关闭切换月份，默认false
      * 	lock：锁定控件上的所有操作，只展示，默认false
      * 	多选：multiple，默认true
@@ -177,7 +178,7 @@
             var leftTarget = 'data-target-month="' + beforeMonth + '"',
                 rightTarget = 'data-target-month="' + afterMonth + '"';
 
-            var now = new Date(baseDate.year + '-' + (baseDate.month >= 10 ? baseDate.month : '0' + baseDate.month) + '-' + (baseDate.day >= 10 ? baseDate.day : '0' + baseDate.day) + 'T00:00:01');
+            var now = DatePicker.createDate(baseDate);
             var bf = new Date(beforeDate.toDateString());
             var af = new Date(afterDate.toDateString());
 
@@ -308,6 +309,8 @@
          *
          *  	tdHTML：td
          *  	ckDay：检查备注信息
+         *  badge：角标，
+         *  badgeActive：角标选中
          *
          * */
         var statusClass = '',
@@ -322,6 +325,10 @@
             ckDay = '',
             saturday = '',
             sunday = '';
+
+        var badge = '',
+            badgeActive = '';
+        var badgeTmp = [];
 
         /*
         *
@@ -341,6 +348,7 @@
         var stateTmp = null;
 
         for(var i = 0; i < DEFAULT.gather.length; i++) {
+            //预置状态
             if(DEFAULT.gather[i].state) {
                 stateTmp = {date: DEFAULT.gather[i].date, comment: DEFAULT.gather[i].comment};
 
@@ -369,6 +377,34 @@
                         break;
                 }
             }
+
+            //角标
+            var direction = '';
+            if(DEFAULT.gather[i]['badge-left']) {
+                badge = DEFAULT.gather[i]['badge-left'];
+
+                if(DEFAULT.gather[i]['badge-left-active']) {
+                    badgeActive = DEFAULT.gather[i]['badge-left-active'];
+                }
+
+                badgeTmp.push({date: DEFAULT.gather[i].date, badge: {
+                    direction: 'left',
+                    source: badge,
+                    active: badgeActive
+                }});
+            } else if(DEFAULT.gather[i]['badge-right']) {
+                badge = DEFAULT.gather[i]['badge-right'];
+
+                if(DEFAULT.gather[i]['badge-right-active']) {
+                    badgeActive = DEFAULT.gather[i]['badge-right-active'];
+                }
+
+                badgeTmp.push({date: DEFAULT.gather[i].date, badge: {
+                    direction: 'right',
+                    source: badge,
+                    active: badgeActive
+                }});
+            }
         }
 
         for(var i = 0; i < dayArr.length; i++) {
@@ -384,6 +420,9 @@
             statusClass = '';
             statusConfirm = '';
             selectable = '';
+
+            //角标
+            var badgeHtml = '';
 
             if(dayArr[i] == '') {
                 dateData = '';
@@ -437,6 +476,15 @@
                         statusClass = ' readonly';
                     }
                 }
+
+                //角标
+                var bt = checkDate(newDate, badgeTmp);
+                if(bt) {
+                    badgeHtml = '<div class="badge" style="' +
+                        badgeTmp[bt].badge.direction + ': 0; ' +
+                        'background-image: url(' + badgeTmp[bt].badge.source + ');' +
+                        '"></div>';
+                }
             }
 
             //如果当日已被选中过
@@ -456,13 +504,14 @@
             }
 
             //td
-            statusClass = $.trim(statusClass);
-            tdHTML += '<td class="' + statusClass + '" ' +
+            var tdClass = $.trim(statusClass);
+            tdHTML += '<td class="' + tdClass + '" ' +
                 statusConfirm +
                 selectable +
                 dateData +
                 commentData +
                 '>' +
+                badgeHtml +
                 dateHtml +
                 commentHtml +
                 '</td>';
@@ -498,28 +547,40 @@
         }
 
         /*
-         *
          * 判断日期是否相等
-         *
+         *  @param
+         *      date：对象或者字符串，格式（obj: {year: 2017, month: 10, day: 1...}）
+         *      date2：数组或者字符串，格式（[{year: 2017, month: 10, day: 1...}, '2017-10-1']，'2017-10-1'）
          * */
-        function checkDate(date, arr) {
+        function checkDate(date, date2) {
             var result = false;
 
-            var BreakException = {};
-            var d1 = '',
-                d2 = '';
-            try {
-                arr.forEach(function (item) {
-                    d1 = DatePicker.formatDate(item.date);
-                    d2 = DatePicker.formatDate(date);
+            if(date2 instanceof Array) {
+                //数组
+                var BreakException = {};
+                var d1 = '',
+                    d2 = '';
+                try {
+                    date2.forEach(function (item, index) {
+                        d1 = DatePicker.formatDate(item.date);
+                        d2 = DatePicker.formatDate(date);
 
-                    if(d1.day == d2.day && d1.month == d2.month && d1.year == d2.year) {
-                        result = true;
-                        throw BreakException;
-                    }
-                });
-            } catch (e) {
-                if(e != BreakException) throw e;
+                        if(d1.day == d2.day && d1.month == d2.month && d1.year == d2.year) {
+                            result = index;
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if(e != BreakException) throw e;
+                }
+            } else if(typeof date2 == 'string') {
+                //字符串
+                var d1 = DatePicker.formatDate(date),
+                    d2 = DatePicker.formatDate(date2);
+
+                if(d1.day == d2.day && d1.month == d2.month && d1.year == d2.year) {
+                    result = true;
+                }
             }
 
             return result;
@@ -565,7 +626,7 @@
 
                         //删除选中的数据
                         for(var i = 0; i < selectData.length; i++) {
-                            if(selectData[i].date == obj.data('date')) {
+                            if(checkDate(selectData[i].date, obj.data('date'))) {
                                 selectData.splice(i, 1);
                             }
                         }
@@ -696,6 +757,26 @@
 
         return result;
     };
+
+    /*
+    * 生成Date对象
+    * @param
+    *   date：对象或者字符串，
+    *           对象格式：{year: 2017, month: 10, day: 1...}
+    *           字符串格式：2017-10-1
+    * */
+    DatePicker.createDate = function (date) {
+        var result = null;
+
+        if(typeof date == 'object') {
+            result = new Date(date.year + '-' + (date.month >= 10 ? date.month : '0' + date.month) + '-' + (date.day >= 10 ? date.day : '0' + date.day) + 'T00:00:01');
+        } else if(typeof date == 'string') {
+            var _t = date.split('-');
+            result = new Date(_t[0] + '-' + (parseInt(_t[1]) >= 10 ? _t[1] : '0' + _t[1]) + '-' + (parseInt(_t[2]) >= 10 ? _t[2] : '0' + _t[2]) + 'T00:00:01');
+        }
+
+        return result;
+    }
 
     /*
      *

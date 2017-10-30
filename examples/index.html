@@ -19,7 +19,7 @@
 
         $(function () {
             $('#app').datePicker({
-                dateBase: '2017-11-26',
+                dateBase: '2017-8-26',
                 weekend: true,
                 after: 3,
                 gather: createData([7, 8, 9]),
@@ -82,6 +82,11 @@
                             case 3:
                                 _result.state = 'disabled';
                                 break;
+                        }
+
+                        if(parseInt(2 * Math.random())) {
+                            _result['badge-right'] = '../_tmp/icon-discounts.png';
+                            _result['badge-right-active'] = '#';
                         }
 
                         result.push(_result);

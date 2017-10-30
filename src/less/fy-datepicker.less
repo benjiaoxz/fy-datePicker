@@ -107,16 +107,21 @@
             background-size: 100% 100%;
           }
 
-          /*左上角图标*/
-          &.top-left-icon::before {
-            content: '';
-            left: 0;
+          /*角标*/
+          .badge {
+            position: absolute;
+            top: 0;
+            z-index: 66;
+            width: 40%;
+            height: 0;
+            padding-top: 40%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
           }
 
-          /*右上角图标*/
-          &.top-right-icon::before {
-            content: '';
-            right: 0;
+          &.active .badge {
+            background-image: none!important;
           }
 
           p {
