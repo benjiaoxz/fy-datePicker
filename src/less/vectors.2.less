@@ -1,0 +1,309 @@
+@charset "utf-8";
+
+@media only screen and (max-width: 800px), only screen and (max-device-width:800px) {
+  html {
+    font-size:106.66666666666667px;
+  }
+}
+@media only screen and (max-width: 720px), only screen and (max-device-width:720px) {
+  html {
+    font-size:96px;
+  }
+}
+@media only screen and (max-width: 640px), only screen and (max-device-width:640px) {
+  html {
+    font-size:85.33333333333334px;
+  }
+}
+@media only screen and (max-width: 600px), only screen and (max-device-width:600px) {
+  html {
+    font-size:80px;
+  }
+}
+@media only screen and (max-width: 540px), only screen and (max-device-width:540px) {
+  html {
+    font-size:72px;
+  }
+}
+@media only screen and (max-width: 480px), only screen and (max-device-width:480px) {
+  html {
+    font-size:64px;
+  }
+}
+@media only screen and (max-width: 414px), only screen and (max-device-width:414px) {
+  html {
+    font-size:55.2px;
+  }
+}
+@media only screen and (max-width: 400px), only screen and (max-device-width:400px) {
+  html {
+    font-size:53.333333333333336px;
+  }
+}
+@media only screen and (max-width: 375px), only screen and (max-device-width:375px) {
+  html {
+    font-size:50px;
+  }
+}
+@media only screen and (max-width: 360px), only screen and (max-device-width:360px) {
+  html {
+    font-size:48px;
+  }
+}
+@media only screen and (max-width: 320px), only screen and (max-device-width:320px) {
+  html {
+    font-size:42.66666666666667px;
+  }
+}
+
+// 侧边栏菜单
+#sideMenu {
+  .head {
+    padding-top: 0.6rem;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    margin: 0 auto;
+  }
+
+  .mobile {
+    margin-top: 0.22rem;
+    font-size: 0.32rem;
+    color: #333;
+  }
+
+  .sui-list {
+    padding: 0.9rem 0 1.77rem;
+
+    li {
+      margin: 0.55rem 0 0 0.77rem;
+      padding: 0;
+      border: 0 none;
+      background: transparent;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      .sui-cell-icons {
+        line-height: 0.45rem;
+        font-size: 0.32rem;
+        color: #333;
+        padding-left: 0.62rem;
+
+        .sui-cell-icon {
+          top: 0;
+          bottom: 0;
+          margin: auto 0;
+          width: 0.33rem;
+          height: 0.33rem;
+          background-size: 100% 100%;
+        }
+      }
+    }
+  }
+
+  .foot {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 0.1rem 0.1rem 0.46rem;
+    background-color: #fff;
+
+    .item {
+      flex: 1;
+      text-align: center;
+
+      .icon {
+        display: block;
+        width: 0.7rem;
+        height: 0.7rem;
+        margin: 0 auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+      }
+
+      p {
+        margin-top: 0.11rem;
+        font-size: 0.28rem;
+        line-height: 0.4rem;
+        color: #999;
+      }
+    }
+  }
+
+  /* 订单 */
+  .icon-myorder {
+    background-image: data-uri('../../images/common/side/icon-order.png');
+  }
+  /* 车票 */
+  .icon-ticket {
+    background-image: data-uri('../../images/common/side/icon-ticket.png');
+  }
+  /* 优惠券 */
+  .icon-coupon {
+    background-image: data-uri('../../images/common/side/icon-coupon.png');
+  }
+  /* 邀请有礼 */
+  .icon-invite {
+    background-image: data-uri('../../images/common/side/icon-invite.png');
+  }
+  /* 联系客服 */
+  .icon-contact {
+    background-image: data-uri('../../images/common/side/icon-contact.png');
+  }
+  /* 设置 */
+  .icon-config {
+    background-image: data-uri('../../images/common/side/icon-set.png');
+  }
+  /* 反馈建议 */
+  .icon-suggest {
+    background-image: data-uri('../../images/common/side/icon-suggest.png');
+  }
+  /* 奖品兑换 */
+  .icon-conversion {
+    background-image: data-uri('../../images/common/side/icon-conversion.png');
+  }
+  /* 员工排行榜 */
+  .icon-ranking {
+    background-image: data-uri('../../images/common/side/icon-ranking.png');
+  }
+}
+
+.ellipsis (@x) {
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @x;
+  -webkit-box-orient: vertical;
+}
+
+.btn-group {
+  position:fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  padding: 0.22rem;
+  background-color: transparent;
+  display: flex;
+
+  .btn {
+    flex: 1;
+    margin-left: 0.22rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.btn {
+  position: relative;
+  height: 0.53rem;
+  line-height: 0.53rem;
+  padding: 0.24rem 0.15rem 0.23rem;
+  text-align: center;
+  font-size: 0.38rem;
+  white-space: nowrap;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-sizing: content-box;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  &:active::before {
+    content: '';
+  }
+
+  &.default {
+    background-color: #fff;
+    color: #999;
+    border: 1px solid #ccc;
+  }
+
+  &.primary {
+    background-color: #6392FE;
+    color: #fff;
+  }
+}
+
+.not-data {
+  margin-top: 30%;
+  padding-top: 180px;
+  background: top center no-repeat;
+  background-size: 138px auto;
+  text-align: center;
+  color: #999;
+}
+
+/* 站点 */
+.station {
+  .station-item {
+    display: flex;
+    position: relative;
+    padding-left: 0.38rem;
+    margin-top: 0.08rem;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0.13rem;
+      left: 0;
+      margin: auto 0;
+      width: 0.16rem;
+      height: 0.16rem;
+      border-radius: 100%;
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:first-child::before {
+      background: #25CE5F;
+    }
+    &:last-child::before {
+      background: #FE6666;
+    }
+
+    /*竖线*/
+    &:first-child::after {
+      content: '';
+      position: absolute;
+      top: 0.38rem;
+      left: 0.06rem;
+      bottom: -0.096rem;
+      z-index: 6;
+      width: 0;
+      height: auto;
+      border: 1px solid #ccc;
+    }
+
+    h4 {
+      font-size: 0.32rem;
+      color: #333;
+      font-weight: normal;
+      line-height: 0.45rem;
+      vertical-align: text-top;
+    }
+  }
+}

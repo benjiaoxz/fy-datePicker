@@ -481,7 +481,7 @@
                 var bt = checkDate(newDate, badgeTmp);
                 if(bt) {
                     badgeHtml = '<div class="badge" style="' +
-                        badgeTmp[bt].badge.direction + ': 0; ' +
+                        badgeTmp[bt].badge.direction + ': 0.01rem; ' +
                         'background-image: url(' + badgeTmp[bt].badge.source + ');' +
                         '"' +
                         'data-badge="' + badgeTmp[bt].badge.source + '"' +
@@ -508,11 +508,9 @@
 
             //td
             var tdClass = $.trim(statusClass);
+            var tdArt = $.trim(statusConfirm + selectable + dateData + commentData);
             tdHTML += '<td class="' + tdClass + '" ' +
-                statusConfirm +
-                selectable +
-                dateData +
-                commentData +
+                tdArt +
                 '>' +
                 badgeHtml +
                 dateHtml +

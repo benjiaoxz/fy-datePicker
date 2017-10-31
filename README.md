@@ -42,6 +42,7 @@ pages: [http://benjiaoxz.coding.me/fy-datePicker/examples/index.html](http://ben
 	date：日期，必填，
 	comment：备注信息
 	state：状态，可选（select）、只读（readonly）、禁用（disable）、已选（active），默认可选
+	badge：角标，支持左上角和右上角（badge-left、badge-right），最好配备选中的图标（badge-left-active、badge-right-active），必须是链接
 
 **disableSwitch**：<br>
 关闭切换月份，默认不关闭
